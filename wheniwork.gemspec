@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'wheniwork/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "wheniwork"
+  spec.name          = "wheniwork_ext"
   spec.version       = Wheniwork::VERSION
-  spec.authors       = ["Carlos Vilhena"]
-  spec.email         = ["carlosvilhena@gmail.com"]
+  spec.authors       = ["Imran Haider"]
+  spec.email         = ["haider_6017@hotmail.com"]
   spec.description   = %q{Wrapper for the WhenIWork's API}
   spec.summary       = %q{Wrapper for the WhenIWork's API}
   spec.homepage      = ""
