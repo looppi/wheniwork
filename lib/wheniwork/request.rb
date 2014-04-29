@@ -19,7 +19,8 @@ module WhenIWork
         end
       else
         connection.send(method, path, params).body
-      end
+      end      
+      
     end
 
     def cache_key_for(uri, params)
