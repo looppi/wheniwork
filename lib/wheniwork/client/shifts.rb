@@ -14,6 +14,9 @@ module WhenIWork
         get "shifts/#{shift_id}", params, options
       end      
       
+      def create_shift(params = {}, options = {})
+        post "shifts/", params, options
+      end
       
     end
   end
