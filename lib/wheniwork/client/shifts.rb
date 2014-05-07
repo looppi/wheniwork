@@ -5,6 +5,11 @@ module WhenIWork
         get 'positions', params, options.merge(key: 'wheniwork_positions')
       end
 
+      def shifts_by_users(user_ids, params = {}, options = {})
+        users_str = user_ids.join(',')
+        get "shifts?user_id=#{users_str}", params, options.merge(key: 'wheniwork_shifts')
+      end
+
 
       def shifts(params = {}, options = {})
         get 'shifts', params, options.merge(key: 'wheniwork_shifts')

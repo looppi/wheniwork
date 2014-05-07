@@ -10,17 +10,29 @@ module WhenIWork
     end
 
     def request(method, path, params, cache_options)
+      json_params = params.to_json
       if cache_enabled
         key = cache_options.delete(:key) || cache_key_for(path, params)
         options = default_options.merge(cache_options)
 
         cache_store.fetch(key, options) do
-          connection.send(method, path, params).body
+          if method == :post
+            puts json_params.to_s
+            response = Faraday.post do |req|
+              req.url endpoint+'/'+path
+              req.headers['Content-Type'] = 'application/json'
+              req.headers['W-Token'] = token
+              req.body = json_params.to_s
+            end
+            response.body
+          else
+            connection.send(method, path, params).body
+          end
         end
       else
         connection.send(method, path, params).body
-      end      
-      
+      end
+
     end
 
     def cache_key_for(uri, params)
