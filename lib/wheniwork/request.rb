@@ -14,14 +14,13 @@ module WhenIWork
       if cache_enabled
         key = cache_options.delete(:key) || cache_key_for(path, params)
         options = default_options.merge(cache_options)
-
         cache_store.fetch(key, options) do
           if method == :post
-            puts json_params.to_s
-            response = Faraday.post do |req|
-              req.url endpoint+'/'+path
+            conn = connection
+            response = conn.post do |req|
+              req.url endpoint + path
               req.headers['Content-Type'] = 'application/json'
-              req.headers['W-Token'] = token
+              req.headers['W-Token'] = token.to_s
               req.body = json_params.to_s
             end
             response.body
@@ -32,7 +31,6 @@ module WhenIWork
       else
         connection.send(method, path, params).body
       end
-
     end
 
     def cache_key_for(uri, params)
