@@ -15,6 +15,10 @@ module WhenIWork
         get 'shifts', params, options.merge(key: 'wheniwork_shifts')
       end
 
+      def shifts_by_criteria(start_date, end_date, params = {}, options = {})
+        get "shifts?start=#{start_date}&end=#{end_date}", params, options.merge(key: 'wheniwork_shifts')
+      end
+
       def shift(shift_id, params = {}, options = {})
         get "shifts/#{shift_id}", params, options
       end      
