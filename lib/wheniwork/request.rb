@@ -94,7 +94,7 @@ module WhenIWork
       if login_response.include?("users")
         login_response['users'].map{|u| u['token']}
       else
-        login_response['token']
+        [login_response['token']]
       end
     end
   end
