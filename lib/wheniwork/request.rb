@@ -88,5 +88,14 @@ module WhenIWork
     def cache_enabled
       WhenIWork.configuration.cache_enabled
     end
+
+    def login_tokens
+      login_response = login
+      if login_response.include?("users")
+        login_response['users'].map{|u| u['token']}
+      else
+        login_response['token']
+      end
+    end
   end
 end
