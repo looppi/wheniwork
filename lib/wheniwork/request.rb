@@ -92,9 +92,9 @@ module WhenIWork
     def login_tokens
       login_response = login
       if login_response.include?("users")
-        login_response['users'].map{|u| u['token']}
+        login_response['users'].map{|u| {"W-Token" => u['token'], "W-UserId" => u['id']}}
       else
-        [login_response['token']]
+        [{"W-Token" => login_response['token'], "W-UserId" => login_response['id']}]
       end
     end
   end
