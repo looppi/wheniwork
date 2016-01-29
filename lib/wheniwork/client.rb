@@ -4,6 +4,7 @@ require 'wheniwork/client/shifts'
 require 'wheniwork/client/positions'
 require 'wheniwork/client/locations'
 require 'wheniwork/client/availabilities'
+require 'wheniwork/client/requests'
 
 
 
@@ -15,5 +16,6 @@ module WhenIWork
     include WhenIWork::Client::Positions
     include WhenIWork::Client::Locations
     include WhenIWork::Client::Availabilities
+    include WhenIWork::Client::Requests
   end
 end
