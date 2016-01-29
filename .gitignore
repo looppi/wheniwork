@@ -1,6 +1,7 @@
 *.gem
 *.swp
 *.tmproj
+*.iml
 *~
 .\#*
 .bundle
