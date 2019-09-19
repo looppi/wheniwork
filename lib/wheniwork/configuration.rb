@@ -12,7 +12,7 @@ module WhenIWork
       self.protocol      = 'https'
       self.cache_enabled = true
       self.cache_store   = ActiveSupport::Cache::MemoryStore.new
-      self.endpoint      = "#{protocol}://api.wheniwork.com/#{api_version}/"
+      self.endpoint      = "#{protocol}://api.wheniwork.com/"
       self.expires_in    = 60
     end
 

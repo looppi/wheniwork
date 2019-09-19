@@ -31,9 +31,9 @@ module WhenIWork
       else
         response = connection.send(method) do |req|
           req.url endpoint + path
-          req.params = params
-          req.headers['W-Token'] = cache_options['W-Token'].to_s
-          req.headers['W-UserID'] = cache_options['W-User-ID'].to_s
+          req.params = params.merge(req.params)
+          req.headers['W-Token'] = params['W-Token'].to_s
+          req.headers['W-UserID'] = params['W-User-ID'].to_s
         end
 
         response.body
