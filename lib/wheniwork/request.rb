@@ -2,11 +2,11 @@ module WhenIWork
   module Request
 
     def get(path, params={}, options={})
-      request :get, path, default_request_params.merge(params), options
+      request :get, "2/#{path}", default_request_params.merge(params), options
     end
 
     def post(path, params={}, options={})
-      request :post, path, default_request_params.merge(params), options
+      request :post, "2/#{path}", default_request_params.merge(params), options
     end
 
     def request(method, path, params, cache_options)
@@ -29,7 +29,14 @@ module WhenIWork
           end
         end
       else
-        connection.send(method, path, params).body
+        response = connection.send(method) do |req|
+          req.url endpoint + path
+          req.params = params
+          req.headers['W-Token'] = cache_options['W-Token'].to_s
+          req.headers['W-UserID'] = cache_options['W-User-ID'].to_s
+        end
+
+        response.body
       end
     end
 
@@ -78,7 +85,7 @@ module WhenIWork
     end
 
     def login
-      connection.post('login', auth_params.to_json).body
+      connection.post('2/login', auth_params.to_json).body
     end
 
     def cache_store
@@ -92,9 +99,9 @@ module WhenIWork
     def login_tokens
       login_response = login
       if login_response.include?("users")
-        login_response['users'].map{|u| {"W-Token" => u['token'], "W-UserId" => u['id']}}
+        login_response['users'].map{|u| {"W-Token" => u['token'], "W-UserId" => u['id'], "W-User-ID" => u['id']}}
       else
-        [{"W-Token" => login_response['token'], "W-UserId" => login_response['id']}]
+        [{"W-Token" => login_response['token'], "W-UserId" => login_response['id'], "W-User-ID" => u['id']}]
       end
     end
   end
