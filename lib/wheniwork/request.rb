@@ -98,11 +98,7 @@ module WhenIWork
 
     def login_tokens
       login_response = login
-      if login_response.include?("users")
-        login_response['users'].map{|u| {"W-Token" => u['token'], "W-UserId" => u['id'], "W-User-ID" => u['id']}}
-      else
-        [{"W-Token" => login_response['token'], "W-UserId" => login_response['id'], "W-User-ID" => login_response['id']}]
-      end
+      [{"W-Token" => login_response['token'], "W-UserId" => login_response['id'], "W-User-ID" => login_response['id']}]
     end
   end
 end
