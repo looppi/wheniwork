@@ -20,7 +20,8 @@ module WhenIWork
             response = conn.post do |req|
               req.url endpoint + path
               req.headers['Content-Type'] = 'application/json'
-              req.headers['W-Token'] = token.to_s
+              req.headers['Authorization'] = "Bearer #{params['W-Token'].to_s}"
+              req.headers['W-UserId'] = params["W-UserId"]
               req.body = json_params.to_s
             end
             response.body
@@ -32,8 +33,8 @@ module WhenIWork
         response = connection.send(method) do |req|
           req.url endpoint + path
           req.params = params.merge(req.params)
-          req.headers['W-Token'] = params['W-Token'].to_s
-          req.headers['W-UserID'] = params['W-User-ID'].to_s
+          req.headers['Authorization'] = "Bearer #{params['W-Token'].to_s}"
+          req.headers['W-UserId'] = params["W-UserId"]
         end
 
         response.body
@@ -98,7 +99,7 @@ module WhenIWork
 
     def login_tokens
       login_response = login
-      [{"W-Token" => login_response['token'], "W-UserId" => login_response['id'], "W-User-ID" => login_response['id']}]
+      [{"W-Token" => login_response['token'], "W-UserId" => login_response["user"]["id"].to_s}]
     end
   end
 end
