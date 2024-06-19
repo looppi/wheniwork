@@ -3,7 +3,7 @@ require 'spec_helper'
 describe WhenIWork::Configuration do
   describe '#endpoint' do
     it 'sets the correct endpoint' do
-      expect(subject.endpoint).to eq('https://api.wheniwork.com/2/')
+      expect(subject.endpoint).to eq('https://api.wheniwork.com/')
     end
 
     it 'sets the default expiry time' do
@@ -11,7 +11,7 @@ describe WhenIWork::Configuration do
     end
 
     it 'enables cache by default' do
-      expect(subject.cache_enabled).to be_true
+      expect(subject.cache_enabled).to be true
     end
   end
 end

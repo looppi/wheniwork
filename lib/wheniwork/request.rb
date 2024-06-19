@@ -52,6 +52,7 @@ module WhenIWork
 
     def connection
       @connection ||= Faraday.new(:url => endpoint) do |faraday|
+        faraday.use Faraday::Response::RaiseError
         faraday.request  :url_encoded
 
         faraday.response :json, :content_type => /\bjson$/

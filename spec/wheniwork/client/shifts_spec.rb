@@ -12,8 +12,8 @@ describe WhenIWork::Client::Shifts do
 
   describe '#shift' do
     context 'for an existing shift' do
-      before { stub_get('shifts/976?W-Token=abc123').to_return(
-        body: fixture('shift_976.json')) }
+      before { stub_get('2/shifts/976?W-Token=abc123').to_return(
+        body: fixture('shift_976.json').to_json, headers: {content_type: 'application/json'}) }
 
       it 'returns the expected shift' do
         expect(client.shift(976)['shift']['id']).to eq(976)
@@ -21,8 +21,8 @@ describe WhenIWork::Client::Shifts do
     end
 
     context 'for an unknown shift' do
-      before { stub_get('shifts/-1?W-Token=abc123').to_return(
-        body: fixture('shift_unknown.json')) }
+      before { stub_get('2/shifts/-1?W-Token=abc123').to_return(
+        body: fixture('shift_unknown.json').to_json, headers: {content_type: 'application/json'}) }
 
       it 'does not return a shift' do
         expect(client.shift(-1)['shift']).to be_nil
@@ -40,8 +40,8 @@ describe WhenIWork::Client::Shifts do
 
   describe '#shifts' do
     context 'with available shifts' do
-      before { stub_get('shifts?W-Token=abc123').to_return(
-        body: fixture('shifts.json')) }
+      before { stub_get('2/shifts?W-Token=abc123').to_return(
+        body: fixture('shifts.json').to_json, headers: {content_type: 'application/json'}) }
 
       it 'returns a hash of results' do
         expect(client.shifts.keys).to eq(["start", "end", "shifts",
@@ -58,8 +58,8 @@ describe WhenIWork::Client::Shifts do
     end
 
     context 'without any shifts' do
-      before { stub_get('shifts?W-Token=abc123').to_return(
-        body: fixture('empty_shifts.json')) }
+      before { stub_get('2/shifts?W-Token=abc123').to_return(
+        body: fixture('empty_shifts.json').to_json, headers: {content_type: 'application/json'}) }
 
       it 'returns empty shifts' do
         expect(client.shifts['shifts']).to be_empty
